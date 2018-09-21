@@ -1,0 +1,49 @@
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fdcd:064d:fec0::/48'
+
+config atm-bridge 'atm'
+	option vpi '0'
+	option vci '38'
+	option encaps 'llc'
+	option payload 'bridged'
+	option nameprefix 'dsl'
+
+config dsl 'dsl'
+	option annex 'a'
+	option xfer_mode 'mixed' 
+	option tone 'auto'
+	option firmware '/lib/firmware/dm200.bin'
+
+config interface 'mgmt'
+	option type 'bridge'
+        option ifname 'eth0.2'
+        option proto 'static'
+        option ipaddr '172.16.2.250'
+        option netmask '255.255.255.0'
+
+config device 'lan_dev'
+	option name 'eth0'
+	option macaddr '%LAN_MAC%'
+
+config interface 'wan_adsl'
+	option type 'bridge'
+        option ifname 'eth0 dsl0'
+	option proto 'none'
+	option auto '0'
+
+config interface 'wan_vdsl'
+        option type 'bridge'
+        option ifname 'eth0 dsl0.101'
+        option proto 'none'
+        option auto '0'	
+
+config device 'wan_dev'
+	option name 'dsl0'
+	option macaddr '%WAN_MAC%'

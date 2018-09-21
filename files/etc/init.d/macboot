@@ -1,0 +1,16 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+
+START=15
+
+. /lib/functions/uci-defaults.sh
+. /lib/functions/system.sh                            
+. /lib/functions/lantiq.sh
+
+boot() {
+	lan_mac=$(mtd_get_mac_binary ART 0)
+	wan_mac=$(macaddr_add "$lan_mac" 1)
+
+	sed -i "s#%LAN_MAC%#$lan_mac#" /etc/config/network
+	sed -i "s#%WAN_MAC%#$wan_mac#" /etc/config/network
+}

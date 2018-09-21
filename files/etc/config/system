@@ -1,0 +1,25 @@
+config system
+	option hostname 'yodekoo-modem'
+	option timezone 'UTC'
+	option ttylogin '0'
+	option log_size '64'
+	option urandom_seed '0'
+
+config timeserver 'ntp'
+	option enabled '1'
+	option enable_server '0'
+	list server '172.16.2.254'
+
+config led 'led_dsl'
+	option name 'dsl'
+	option sysfs 'dm200:green:dsl'
+	option trigger 'on'
+	option mode 'link tx rx'
+	option dev 'dsl0'
+
+config led 'led_lan'
+	option name 'lan'
+	option sysfs 'dm200:green:lan'
+	option trigger 'netdev'
+	option mode 'link tx rx'
+	option dev 'eth0'
